@@ -57,7 +57,7 @@ export default function RecapCMS({
               ...(config.vite?.plugins || []),
               AdminDashboard({
                 config: cmsConfig,
-                previewStyles,
+                // previewStyles,
                 // identityWidget: disableIdentityWidgetInjection
                 //   ? identityWidgetScript
                 //   : "",
