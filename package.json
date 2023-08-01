@@ -1,0 +1,48 @@
+{
+  "name": "astro-recap-cms",
+  "version": "0.1.0",
+  "description": "Vite plugin for Astro Recap CMS",
+  "repository": "ibrahimPandoSoft/astro-recap-cms",
+  "homepage": "https://github.com/ibrahimPandoSoft/astro-recap-cms",
+  "author": "Ibrahim Pando",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./cms": "./dist/cms.js",
+    "./identity-widget": "./dist/identity-widget.js",
+    "./vite-plugin-admin-dashboard": "./dist/vite-plugin-admin-dashboard.js",
+    "./admin-dashboard.astro": "./admin-dashboard.astro"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepack": "tsc",
+    "test:smoke": "tsc && cd demo && npm ci && npm run build",
+    "test": "npm run test:smoke"
+  },
+  "keywords": [
+    "astro-component",
+    "cms",
+    "astro",
+    "netlify-cms",
+    "netlify",
+    "vite",
+    "vite-plugin",
+    "vite-plugin-astro",
+    "vite-plugin-netlify-cms",
+    "vite-plugin-netlify-cms-astro",
+    "decap",
+    "decap-astro"
+  ],
+  "dependencies": {
+    "netlify-cms-app": "^2.15.66",
+    "netlify-cms-proxy-server": "^1.3.23",
+    "netlify-identity-widget": "^1.9.2"
+  },
+  "peerDependencies": {
+    "astro": "^2.0.0"
+  },
+  "devDependencies": {
+    "astro": "^2.9.3"
+  }
+}
