@@ -47,7 +47,7 @@ export default function RecapCMS({
       }) => {
         console.log("Setting up Recap CMS integration");
 
-        const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
+        // const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
         const newConfig: AstroUserConfig = {
           // Default to the URL provided by Recap when building there. See:
           // https://docs.recap.com/configure-builds/environment-variables/#deploy-urls-and-metadata
@@ -58,9 +58,9 @@ export default function RecapCMS({
               AdminDashboard({
                 config: cmsConfig,
                 previewStyles,
-                identityWidget: disableIdentityWidgetInjection
-                  ? identityWidgetScript
-                  : "",
+                // identityWidget: disableIdentityWidgetInjection
+                //   ? identityWidgetScript
+                //   : "",
               }),
             ],
           },
@@ -72,9 +72,9 @@ export default function RecapCMS({
           entryPoint: "astro-recap-cmss/admin-dashboard.html",
         });
 
-        if (!disableIdentityWidgetInjection) {
-          injectScript("page", identityWidgetScript);
-        }
+        // if (!disableIdentityWidgetInjection) {
+        //   injectScript("page", identityWidgetScript);
+        // }
       },
 
       "astro:server:start": () => {
@@ -87,6 +87,7 @@ export default function RecapCMS({
       },
 
       "astro:server:done": () => {
+        console.log("Shutting down Recap CMS proxy server");
         proxy.kill();
       },
     },
