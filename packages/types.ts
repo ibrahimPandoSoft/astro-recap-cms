@@ -1,5 +1,5 @@
-import type CMS from 'netlify-cms-app';
-import type { CmsConfig } from 'netlify-cms-core';
+import type CMS from "netlify-cms-app";
+import type { CmsConfig } from "netlify-cms-core";
 
 export type NormalizedPreviewStyle =
   | [pathOrUrl: string]

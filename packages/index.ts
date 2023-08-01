@@ -45,9 +45,7 @@ export default function RecapCMS({
         injectScript,
         updateConfig,
       }) => {
-        console.log("original config.vite.plugins", config.vite.plugins);
-
-        // const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
+        const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
         const newConfig: AstroUserConfig = {
           // Default to the URL provided by Recap when building there. See:
           // https://docs.recap.com/configure-builds/environment-variables/#deploy-urls-and-metadata
@@ -56,35 +54,32 @@ export default function RecapCMS({
             plugins: [
               AdminDashboard({
                 config: cmsConfig,
-                // previewStyles,
-                // identityWidget: disableIdentityWidgetInjection
-                //   ? identityWidgetScript
-                //   : "",
+                previewStyles,
+                identityWidget: disableIdentityWidgetInjection
+                  ? identityWidgetScript
+                  : "",
               }),
-              // ...(config.vite?.plugins || []),
             ],
           },
         };
         updateConfig(newConfig);
 
-        console.log("newConfig", newConfig);
         injectRoute({
           pattern: adminPath,
           entryPoint: "astro-recap-cms/admin-dashboard.astro",
         });
 
-        // if (!disableIdentityWidgetInjection) {
-        //   injectScript("page", identityWidgetScript);
-        // }
+        if (!disableIdentityWidgetInjection) {
+          injectScript("page", identityWidgetScript);
+        }
       },
-      "astro:config:done": ({ config }) => {
-        console.log(
-          "astro:config:done => config.vite.plugins",
-          config.vite.plugins
-        );
-      },
+
       "astro:server:start": () => {
-        proxy = spawn("pnpx", ["netlify-cms-proxy-server"], {
+        // check if pnpm is used so run pnpx instead of npx
+        const command = process.env.npm_execpath?.includes("pnpm")
+          ? "pnpx"
+          : "npx";
+        proxy = spawn(command, ["netlify-cms-proxy-server"], {
           stdio: "inherit",
           // Run in shell on Windows to make sure the npm package can be found.
           shell: process.platform === "win32",
