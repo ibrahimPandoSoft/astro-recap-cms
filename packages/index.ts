@@ -78,7 +78,7 @@ export default function RecapCMS({
       },
 
       "astro:server:start": () => {
-        proxy = spawn("pnpx", ["recap-cms-proxy-server"], {
+        proxy = spawn("pnpx", ["netlify-cms-proxy-server"], {
           stdio: "inherit",
           // Run in shell on Windows to make sure the npm package can be found.
           shell: process.platform === "win32",
