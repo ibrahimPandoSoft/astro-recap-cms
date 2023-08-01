@@ -4,7 +4,7 @@ import { spawn } from "node:child_process";
 import type { PreviewStyle } from "./types.js";
 import AdminDashboard from "./vite-plugin-admin-dashboard.js";
 
-const widgetPath = "astro-recap-cmss/identity-widget";
+const widgetPath = "astro-recap-cms/identity-widget";
 
 interface RecapCMSOptions {
   /**
@@ -46,6 +46,11 @@ export default function RecapCMS({
         updateConfig,
       }) => {
         console.log("Setting up Recap CMS integration");
+        console.log(
+          "config.site || process.env.URL",
+          config.site || process.env.URL
+        );
+        console.log("config.integrations", config.integrations);
 
         // const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
         const newConfig: AstroUserConfig = {
@@ -64,12 +69,13 @@ export default function RecapCMS({
               }),
             ],
           },
+          integrations: config.integrations || [],
         };
         updateConfig(newConfig);
 
         injectRoute({
           pattern: adminPath,
-          entryPoint: "astro-recap-cmss/admin-dashboard.html",
+          entryPoint: "astro-recap-cms/admin-dashboard.astro",
         });
 
         // if (!disableIdentityWidgetInjection) {
