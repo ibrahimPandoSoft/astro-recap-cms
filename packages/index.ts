@@ -69,7 +69,6 @@ export default function RecapCMS({
               }),
             ],
           },
-          integrations: config.integrations || [],
         };
         updateConfig(newConfig);
 
@@ -83,6 +82,11 @@ export default function RecapCMS({
         // }
       },
 
+      "astro:config:done": ({ config }) => {
+        console.log("astro:config:done...");
+        console.log("config ==>", config);
+        console.log("config.integrations", config.integrations);
+      },
       "astro:server:start": () => {
         proxy = spawn("pnpx", ["netlify-cms-proxy-server"], {
           stdio: "inherit",
