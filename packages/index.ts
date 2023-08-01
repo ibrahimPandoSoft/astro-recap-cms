@@ -61,7 +61,7 @@ export default function RecapCMS({
                 //   ? identityWidgetScript
                 //   : "",
               }),
-              ...(config.vite?.plugins || []),
+              // ...(config.vite?.plugins || []),
             ],
           },
         };
