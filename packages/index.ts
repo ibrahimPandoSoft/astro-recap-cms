@@ -45,12 +45,7 @@ export default function RecapCMS({
         injectScript,
         updateConfig,
       }) => {
-        console.log("Setting up Recap CMS integration");
-        console.log(
-          "config.site || process.env.URL",
-          config.site || process.env.URL
-        );
-        console.log("config.integrations", config.integrations);
+        console.log("original config.vite.plugins", config.vite.plugins);
 
         // const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
         const newConfig: AstroUserConfig = {
@@ -72,6 +67,8 @@ export default function RecapCMS({
         };
         updateConfig(newConfig);
 
+        console.log("newConfig", newConfig);
+        console.log("new config.vite.plugins", config.vite.plugins);
         injectRoute({
           pattern: adminPath,
           entryPoint: "astro-recap-cms/admin-dashboard.astro",
@@ -80,12 +77,6 @@ export default function RecapCMS({
         // if (!disableIdentityWidgetInjection) {
         //   injectScript("page", identityWidgetScript);
         // }
-      },
-
-      "astro:config:done": ({ config }) => {
-        console.log("astro:config:done...");
-        console.log("config ==>", config);
-        console.log("config.integrations", config.integrations);
       },
       "astro:server:start": () => {
         proxy = spawn("pnpx", ["netlify-cms-proxy-server"], {
