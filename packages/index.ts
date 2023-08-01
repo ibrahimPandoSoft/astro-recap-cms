@@ -54,7 +54,6 @@ export default function RecapCMS({
           site: config.site || process.env.URL,
           vite: {
             plugins: [
-              ...(config.vite?.plugins || []),
               AdminDashboard({
                 config: cmsConfig,
                 // previewStyles,
@@ -62,13 +61,13 @@ export default function RecapCMS({
                 //   ? identityWidgetScript
                 //   : "",
               }),
+              ...(config.vite?.plugins || []),
             ],
           },
         };
         updateConfig(newConfig);
 
         console.log("newConfig", newConfig);
-        console.log("new config.vite.plugins", config.vite.plugins);
         injectRoute({
           pattern: adminPath,
           entryPoint: "astro-recap-cms/admin-dashboard.astro",
@@ -77,6 +76,12 @@ export default function RecapCMS({
         // if (!disableIdentityWidgetInjection) {
         //   injectScript("page", identityWidgetScript);
         // }
+      },
+      "astro:config:done": ({ config }) => {
+        console.log(
+          "astro:config:done => config.vite.plugins",
+          config.vite.plugins
+        );
       },
       "astro:server:start": () => {
         proxy = spawn("pnpx", ["netlify-cms-proxy-server"], {
