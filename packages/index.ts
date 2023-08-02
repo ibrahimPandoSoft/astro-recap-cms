@@ -15,16 +15,12 @@ interface RecapCMSOptions {
 }
 
 export default function RecapCMS({
-  adminPath = "/admin",
+  adminPath = "/pando-web-admin",
   config: cmsConfig,
   previewStyles = [],
 }: RecapCMSOptions) {
   if (!adminPath.startsWith("/")) {
-    throw new Error(
-      '`adminPath` option must be a root-relative pathname, starting with "/", got "' +
-        adminPath +
-        '"'
-    );
+    adminPath = "/" + adminPath;
   }
   if (adminPath.endsWith("/")) {
     adminPath = adminPath.slice(0, -1);
@@ -44,7 +40,7 @@ export default function RecapCMS({
         const newConfig: AstroUserConfig = {
           // Default to the URL provided by Recap when building there. See:
           // https://docs.recap.com/configure-builds/environment-variables/#deploy-urls-and-metadata
-          site: config.site || process.env.URL,
+          // site: config.site || process.env.URL,
           vite: {
             plugins: [
               AdminDashboard({
