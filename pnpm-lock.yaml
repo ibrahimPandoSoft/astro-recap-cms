@@ -11,9 +11,6 @@ dependencies:
   netlify-cms-proxy-server:
     specifier: ^1.3.23
     version: 1.3.23
-  netlify-identity-widget:
-    specifier: ^1.9.2
-    version: 1.9.2
 
 devDependencies:
   astro:
@@ -5118,10 +5115,6 @@ packages:
       react-textarea-autosize: 8.5.2(@types/react@18.2.18)(react@16.14.0)
     transitivePeerDependencies:
       - '@types/react'
-    dev: false
-
-  /netlify-identity-widget@1.9.2:
-    resolution: {integrity: sha512-IbS1JHhs7BflCCvp3C9f6tmNSZqbyBhZ4Gs5+Qxt4IlPybTOVv0PqJ4TAsA7uxh1R+oXOAmk0OOMAkEaPYeCtA==}
     dev: false
 
   /network-information-types@0.1.1(typescript@5.1.6):

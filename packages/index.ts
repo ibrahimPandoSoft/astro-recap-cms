@@ -4,8 +4,6 @@ import { spawn } from "node:child_process";
 import type { PreviewStyle } from "./types.js";
 import AdminDashboard from "./vite-plugin-admin-dashboard.js";
 
-const widgetPath = "astro-recap-cms/identity-widget";
-
 interface RecapCMSOptions {
   /**
    * Path at which the Recap CMS admin dashboard should be served.
@@ -13,12 +11,10 @@ interface RecapCMSOptions {
    */
   adminPath?: string;
   config: Omit<CmsConfig, "load_config_file" | "local_backend">;
-  disableIdentityWidgetInjection?: boolean;
   previewStyles?: PreviewStyle[];
 }
 
 export default function RecapCMS({
-  disableIdentityWidgetInjection = false,
   adminPath = "/admin",
   config: cmsConfig,
   previewStyles = [],
@@ -45,7 +41,6 @@ export default function RecapCMS({
         injectScript,
         updateConfig,
       }) => {
-        const identityWidgetScript = `import { initIdentity } from '${widgetPath}'; initIdentity('${adminPath}');`;
         const newConfig: AstroUserConfig = {
           // Default to the URL provided by Recap when building there. See:
           // https://docs.recap.com/configure-builds/environment-variables/#deploy-urls-and-metadata
@@ -55,9 +50,6 @@ export default function RecapCMS({
               AdminDashboard({
                 config: cmsConfig,
                 previewStyles,
-                identityWidget: disableIdentityWidgetInjection
-                  ? identityWidgetScript
-                  : "",
               }),
             ],
           },
@@ -68,10 +60,6 @@ export default function RecapCMS({
           pattern: adminPath,
           entryPoint: "astro-recap-cms/admin-dashboard.astro",
         });
-
-        if (!disableIdentityWidgetInjection) {
-          injectScript("page", identityWidgetScript);
-        }
       },
 
       "astro:server:start": () => {
