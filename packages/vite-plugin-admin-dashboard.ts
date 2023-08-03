@@ -2,7 +2,7 @@ import type { CmsConfig } from "netlify-cms-core";
 import type { Plugin } from "vite";
 import type { PreviewStyle } from "./types";
 
-const virtualModuleId = "virtual:astro-recap-cms/user-config";
+const virtualModuleId = "virtual:astro-pando-web/user-config";
 const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
 function generateVirtualConfigModule({

@@ -4,21 +4,21 @@ import { spawn } from "node:child_process";
 import type { PreviewStyle } from "./types.js";
 import AdminDashboard from "./vite-plugin-admin-dashboard.js";
 
-interface RecapCMSOptions {
+interface PandoWebOptions {
   /**
-   * Path at which the Recap CMS admin dashboard should be served.
-   * @default '/admin'
+   * Path at which the Pando Web admin dashboard should be served.
+   * @default '/pando-web-admin'
    */
   adminPath?: string;
   config: Omit<CmsConfig, "load_config_file" | "local_backend">;
   previewStyles?: PreviewStyle[];
 }
 
-export default function RecapCMS({
+export default function PandoWeb({
   adminPath = "/pando-web-admin",
   config: cmsConfig,
   previewStyles = [],
-}: RecapCMSOptions) {
+}: PandoWebOptions) {
   if (!adminPath.startsWith("/")) {
     adminPath = "/" + adminPath;
   }
@@ -28,8 +28,8 @@ export default function RecapCMS({
 
   let proxy: ReturnType<typeof spawn>;
 
-  const RecapCMSIntegration: AstroIntegration = {
-    name: "recap-cms",
+  const PandoWebIntegration: AstroIntegration = {
+    name: "pando-web",
     hooks: {
       "astro:config:setup": ({
         config,
@@ -54,7 +54,7 @@ export default function RecapCMS({
 
         injectRoute({
           pattern: adminPath,
-          entryPoint: "astro-recap-cms/admin-dashboard.astro",
+          entryPoint: "astro-pando-web/admin-dashboard.astro",
         });
       },
 
@@ -77,5 +77,5 @@ export default function RecapCMS({
       },
     },
   };
-  return RecapCMSIntegration;
+  return PandoWebIntegration;
 }
