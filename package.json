@@ -1,5 +1,8 @@
 {
-  "name": "astro-pando-web",
+  "name": "@zaid-ahmad-jarrar/astro-recap-cms",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@zaid-ahmad-jarrar"
+  },
   "version": "0.1.0",
   "description": "Vite plugin for Astro Pando web",
   "repository": "ibrahimPandoSoft/astro-pando-web",

@@ -54,6 +54,7 @@ export default function PandoWeb({
 
         injectRoute({
           pattern: adminPath,
+          // TODO: change to name of the package
           entryPoint: "astro-pando-web/admin-dashboard.astro",
         });
       },
